@@ -7,11 +7,6 @@ penhi    = $fc
 
          *= $0810
 
-         lda #<32768 ;callback
-         sta $0318
-         lda #>32768
-         sta $0319
-
          lda #147    ;clear screen
          jsr $ffd2
 
@@ -44,10 +39,6 @@ penhi    = $fc
          ldx #0
          jsr positionsprite
 
-         lda #$01
-         sta $d800
-         sta $d804
-         sta $d828
 
 main
          jsr raster
