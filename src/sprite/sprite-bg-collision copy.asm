@@ -11,19 +11,18 @@ sprite_bg_collsion:
     jsr get_tile_position
 
     // display debug coordinates:
-        lda tempx 
-        clc 
-        adc #$d0 
-        sta $0400
-        lda tempy 
-        clc 
-        adc #$d0 
-        sta $0402
+    lda tempx 
+    clc 
+    adc #$d0 
+    sta $0400
+    lda tempy 
+    clc 
+    adc #$d0 
+    sta $0402
 
     // read map: 
     // use 'y * 20 + x' as index
-    
-check_collision:
+
     ldx tempy
     lda rowtable,x 
     clc 

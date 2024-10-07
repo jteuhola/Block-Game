@@ -84,7 +84,7 @@ bool:
     .byte %00000000
      // bits:
      // 0 - player moving
-     // 1 -
+     // 1 - collision occurred
      // 2 -
      // 3 -
      // 4 -
