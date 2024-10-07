@@ -3,7 +3,7 @@ draw_sprite:
     sta V+1,x 
     lda xpos,x 
     asl 
-    rol $d010 
+    ror $d010 
     sta V,x 
     inx 
     inx 

@@ -31,18 +31,24 @@ setup_sprite:
 
 #import "place-sprite.asm"
 #import "draw-sprite.asm"
+#import "update-sprite.asm"
+#import "sprite-bg-collision.asm"
 
 xpostile: 
     .byte $03,$00,$00,$00
     .byte $00,$00,$00,$00
 ypostile:   
-    .byte $03,$00,$00,$00
+    .byte $00,$00,$00,$00
     .byte $00,$00,$00,$00
 xposhi:
     .byte 0,0,0,0,0,0,0,0
 xpos:
     .byte 0,0,0,0,0,0,0,0
 ypos:
+    .byte 0,0,0,0,0,0,0,0
+dx:
+    .byte 0,0,0,0,0,0,0,0
+dy:
     .byte 0,0,0,0,0,0,0,0
 
 sprite_colors:
