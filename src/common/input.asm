@@ -12,7 +12,7 @@ input:
         lda #1
         and $dc00 
         bne down 
-        lda #$ff 
+        lda #$fe
         sta dy
         jsr activate_movement
 
@@ -21,7 +21,7 @@ input:
         and $dc00 
         bne left 
 
-        lda #$01 
+        lda #$02 
         sta dy 
         jsr activate_movement
     left: 

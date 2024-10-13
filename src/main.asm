@@ -24,10 +24,10 @@ init:
 
     lda #%11011000
     sta $d016   // multicolor on
-    lda #2
-    sta $d022
-    lda #10
-    sta $d023
+    lda #6
+    sta $d022   // multicolor 1
+    lda #3
+    sta $d023   // multicolor 2
     // chr and screen memory
     lda #%00011000 // chr mem -> $2000-$27ff, screen -> $0400-$07ff
     sta $d018
@@ -36,6 +36,7 @@ init:
     // 160 * 64 = 10 240
 
     jsr draw_screen
+    jsr color_screen
     jsr setup_sprite
 
     lda #$01 
@@ -61,12 +62,16 @@ raster:
 
 
 *=$2000 "Chars"
-#import "src/assets/graphics/block-game-chars.asm"
+charset_data:
+.import binary "src/assets/graphics/block-game-chars.bin"
 
 *=$2900 "Sprites"
 #import "src/assets/graphics/block-game-sprites.asm"
 
-*=$2a00 "RAM"
+*=$2a00 "Char Attribute Data"
+.import binary "src/assets/graphics/block-game-char-attributes.bin"
+
+*=$2b00 "RAM"
 #import "common/input.asm"
 #import "screen/pen.asm"
 #import "screen/draw-screen.asm"
@@ -77,6 +82,8 @@ raster:
 
 // TILES:
 #import "assets/block-tileset.asm"
+// HUD:
+#import "assets/hud.asm"
 
 //### COMMON VARIABLES #########################
 

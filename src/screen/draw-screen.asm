@@ -32,7 +32,7 @@ draw_screen:
     sta (PENLO),y 
     lda counter 
     cmp #$f0
-    beq quitdraw 
+    beq draw_hud 
 
     inc colcounter 
     lda colcounter 
@@ -50,8 +50,16 @@ skiprowinc:
     jsr dec_pen
     jmp !loop-
 
-quitdraw: 
-    rts 
+draw_hud:
+    ldx #$28
+!loop:
+    lda hud_data,x
+    sta $07c0,x
+    dex
+    bne !loop- 
+
+quitdraw:
+rts
 
 
 
