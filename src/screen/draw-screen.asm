@@ -56,7 +56,32 @@ draw_hud:
     lda hud_data,x
     sta $07c0,x
     dex
-    bne !loop- 
+    bpl !loop- 
+
+// display current level index:
+    lda level 
+    clc 
+    adc #$d0 
+    sta $07ca 
+
+// display amount of buttons pressed:
+    lda buttons 
+    sec 
+    sbc #10 
+    tax
+    bmi !+
+    lda #$d1
+    sta $07d0
+    txa 
+    clc 
+    adc #$d0 
+    sta $07d1 
+    jmp quitdraw
+!:
+    lda buttons 
+    clc 
+    adc #$d0 
+    sta $07d1
 
 quitdraw:
 rts

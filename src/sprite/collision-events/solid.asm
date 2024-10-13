@@ -1,0 +1,2 @@
+collide_solid:
+    rts

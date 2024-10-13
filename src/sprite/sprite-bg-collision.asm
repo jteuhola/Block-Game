@@ -1,9 +1,16 @@
 sprite_bg_collsion:
 
-    // right:
+// x:
     lda dx 
-    cmp #$01
-    bne collision_left 
+    bne !+
+    jmp collision_y 
+!:
+    lda dx 
+    bpl collision_right
+    jmp collision_left 
+
+collision_right:
+    // right:
 
     lda xpos
     clc 
@@ -17,6 +24,8 @@ sprite_bg_collsion:
     lda #%00000010
     and bool
     beq !return+
+    lda collision_flag
+    and #%00000001
     lda #%11111101  // deactivate collision
     and bool 
     sta bool
@@ -29,7 +38,6 @@ sprite_bg_collsion:
     sta ypostile 
     ldx #0
     jsr place_sprite
-    inc $d020 
     jmp return
 
 !return:
@@ -133,14 +141,14 @@ collision_up:
     jmp return
 
     // display debug coordinates:
-        lda tempx 
-        clc 
-        adc #$d0 
-        sta $0400
-        lda tempy 
-        clc 
-        adc #$d0 
-        sta $0402
+        // lda tempx 
+        // clc 
+        // adc #$d0 
+        // sta $0400
+        // lda tempy 
+        // clc 
+        // adc #$d0 
+        // sta $0402
 
     // read map: 
     // use 'y * 20 + x' as index
@@ -156,14 +164,14 @@ check_collision:
     tax 
     lda map_data,x
     tax 
-    lda chartileset_tag_data,x 
+    lda collision_data,x 
     sta collision_flag
     // display on screen:
-        pha 
-        clc 
-        adc #$d0
-        sta $0404
-    pla 
+    //     pha 
+    //     clc 
+    //     adc #$d0
+    //     sta $0404
+    // pla 
     beq !skip+
     // collision happened
     lda #%11111110  // player can move
@@ -179,16 +187,16 @@ check_collision:
 collision_flag:
     .byte %00000000
     // bits:
-    // - 0: null
-    // - 1: solid
-    // - 2: goal
-    // - 3: damage
-    // - 4:
+    // - 0: solid
+    // - 1: goal
+    // - 2: damage
+    // - 3: button
+    // - 4: 
     // - 5:
     // - 6:
     // - 7:
 
-
+// easy lookup table to check if map boundary is hit:
 rowtable:
     .byte 0,20,40,60,80,100
     .byte 120,140,160,180

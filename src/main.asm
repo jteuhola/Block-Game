@@ -4,6 +4,7 @@
 
 .const V        = $d000
 .const SCREEN   = $0400
+.const SCREEN_ATTRIBUTES = $d800
 
 .var PENLO    = $fb
 .var PENHI    = $fc
@@ -19,7 +20,7 @@ init:
     jsr $ffd2
 
     // screen color
-    lda #$0e; sta $d020
+    lda #$06; sta $d020
     lda #$00; sta $d021
 
     lda #%11011000
@@ -39,9 +40,6 @@ init:
     jsr color_screen
     jsr setup_sprite
 
-    lda #$01 
-    sta $d800 
-    sta $d802
 
 main:
     jsr raster
@@ -69,21 +67,26 @@ charset_data:
 #import "src/assets/graphics/block-game-sprites.asm"
 
 *=$2a00 "Char Attribute Data"
+char_attribute_data:
 .import binary "src/assets/graphics/block-game-char-attributes.bin"
 
 *=$2b00 "RAM"
 #import "common/input.asm"
 #import "screen/pen.asm"
 #import "screen/draw-screen.asm"
+#import "screen/color-screen.asm"
 #import "sprite/get-tile-position.asm"
 
 *=$8000 "Maps"
-#import "assets/maps/map0.asm"
+map_data:
+.import binary "assets/maps/map0.bin"
 
 // TILES:
 #import "assets/block-tileset.asm"
+#import "assets/tileset-collision-flags.asm"
 // HUD:
-#import "assets/hud.asm"
+hud_data:
+.import binary "assets/hud.bin"
 
 //### COMMON VARIABLES #########################
 
@@ -98,6 +101,9 @@ bool:
      // 5 -
      // 6 -
      // 7 -
+
+level:      .byte 4
+buttons:    .byte 10     // press buttons to spawn a portal
 
 temp:       .byte 0
 tempx:      .byte 0

@@ -1,0 +1,2 @@
+collide_damage:
+    rts

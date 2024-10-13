@@ -12,7 +12,7 @@ input:
         lda #1
         and $dc00 
         bne down 
-        lda #$fe
+        lda #$fd
         sta dy
         jsr activate_movement
 
@@ -21,7 +21,7 @@ input:
         and $dc00 
         bne left 
 
-        lda #$02 
+        lda #$03 
         sta dy 
         jsr activate_movement
     left: 
@@ -29,7 +29,7 @@ input:
         and $dc00 
         bne right 
 
-        lda #$ff 
+        lda #$fe
         sta dx 
         jsr activate_movement
     right:
@@ -37,7 +37,7 @@ input:
         and $dc00 
         bne button 
 
-        lda #$01 
+        lda #$02 
         sta dx
         jsr activate_movement
 
